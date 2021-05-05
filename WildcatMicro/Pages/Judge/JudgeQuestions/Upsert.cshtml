@@ -1,0 +1,75 @@
+﻿@page
+@model WildcatMicro.Pages.Admin.JudgeQuestions.UpsertModel
+
+<form method="post" asp-action="Upsert">
+    <div class="container">
+        <div class="row px-2 mx-2 backgroundWhite border">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-12 px-3" style="border-bottom: 1px solid #325d88">
+                <h2 class="text-primary">@(Model.JudgeQuestionsObj.JudgeQuestions.JudgeQuestionsId != 0 ? "Update" : "Create") Judge Questions</h2>
+            </div>
+            <div class="col-8 pt-3">
+                @*<div class="form-group row">
+            <div class="col-3">
+                <label asp-for="JudgeQuestionsObj.ScoreCardId"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="JudgeQuestionsObj.ScoreCardId" />
+                <span class="text-danger" asp-validation-for="JudgeQuestionsObj.ScoreCardId"></span>
+            </div>
+            @if (Model.JudgeQuestionsObj.JudgeScoreId != 0)
+            {
+                <input type="hidden" asp-for="JudgeQuestionsObj.ScoreCardId" />
+            }
+        </div>*@
+
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="JudgeQuestionsObj.JudgeQuestions.Questions.Question"></label>
+                    </div>
+                    <div class="col-9">
+                        @Html.DropDownListFor(m => m.JudgeQuestionsObj.JudgeQuestions.QuestionId,
+                       Model.JudgeQuestionsObj.Questions,
+                       "- Please select a question - ",
+                       new { @class = "form-control" })
+                        <span class="table-danger" asp-validation-for="JudgeQuestionsObj.JudgeQuestions.QuestionId"></span>
+
+                    </div>
+                </div>
+
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label asp-for="JudgeQuestionsObj.JudgeQuestions.Weight"> </label>
+                        </div>
+                        <div class="col-9">
+                            <input class="form-control" asp-for="JudgeQuestionsObj.JudgeQuestions.Weight" />
+                            <span class="text-danger" asp-validation-for="JudgeQuestionsObj.JudgeQuestions.Weight"></span>
+                        </div>
+                    </div>
+
+                    @*<div class="form-group row">
+                        <div class="col-3">
+                            <label asp-for="JudgeQuestionsObj.JudgeQuestions.JudgeScore"> </label>
+                        </div>
+                        <div class="col-9">
+                            <input class="form-control" asp-for="JudgeQuestionsObj.JudgeQuestions.JudgeScore" />
+                            <span class="text-danger" asp-validation-for="JudgeQuestionsObj.JudgeQuestions.JudgeScore"></span>
+                        </div>
+                    </div>*@
+
+                    <div class="form-group row">
+                        <div class="col-9 offset-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn-primary btn form-control">@(Model.JudgeQuestionsObj.JudgeQuestions.JudgeQuestionsId != 0 ? "Update" : "Create")</button>
+                                </div>
+                                <div class="col-6">
+                                    <a asp-page="./Index" class="btn-primary form-control btn">Back to List</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</form>

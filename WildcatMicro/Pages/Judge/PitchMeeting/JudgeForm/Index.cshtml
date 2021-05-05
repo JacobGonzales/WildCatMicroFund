@@ -1,0 +1,52 @@
+﻿@page
+@model WildcatMicro.Pages.Judge.PitchMeeting.JudgeForm.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pitch Event Form</title>
+</head>
+<body>
+    <form method="post">
+        <fieldset>
+            <legend>@Model.name's Pitch</legend>
+            @foreach (var judgeQuestion in Model.JudgeQuestionsList)
+            {
+                <div class="w-50">
+                    <label for="@judgeQuestion.JudgeQuestionsId">@judgeQuestion.Questions.Question </label>
+                    <div>
+                        <input type="range" name="@judgeQuestion.JudgeQuestionsId" class="custom-range" min="0" max="10" id="value-@judgeQuestion.JudgeQuestionsId" onchange="changetext(@judgeQuestion.JudgeQuestionsId)" value="0"/>
+                        <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan-@judgeQuestion.JudgeQuestionsId">0</span>
+                    </div>
+                    <div>
+                        Comments: <textarea class="form-control" name="comment-@judgeQuestion.JudgeQuestionsId"></textarea>
+                    </div>
+                </div>
+
+                <hr />
+            }
+
+            <div>
+                <span>Total: </span> <span id="total">0</span>
+                <label>&nbsp;</label>
+                <input type="submit" value="Submit" class="submit" />
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>
+
+<script>
+    function changetext(id) {
+        const $valueSpan = $('.valueSpan-' + id);
+        const $value = $('#value-' + id);
+        const $total = $('#total');
+        var temp = Number($total.html());
+        temp = temp - Number($valueSpan.val());
+
+        $valueSpan.html($value.val());
+        $total.html(temp + Number($value.val()));
+    }
+</script>

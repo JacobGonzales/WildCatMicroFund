@@ -1,0 +1,171 @@
+﻿@page
+@using WildcatMicro.Utility;
+
+@model WildcatMicro.Pages.Admin.ReviewApplications.IndexModel
+@{
+    ViewData["Title"] = "index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<form>
+    <p>
+        Search: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+    <h2> <center> List of Applicants </center></h2>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Company Name
+            </th>
+            <th>
+                Applicant Name
+
+            </th>
+            @if (User.IsInRole(SD.AdministratorRole))
+            {
+                <th>
+                    Update Status
+                </th>
+            }
+            else
+            {
+                <th>
+                    Application Status
+                </th>
+            }
+            <th>
+                Mentor Notes
+            </th>
+            <th>
+                Details
+            </th>
+            <th>
+                Pitch Event
+            </th>
+            <th>
+                Pitch Event History
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model.ApplicationList)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Applicant.Business.Name)
+            </td>
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Applicant.ApplicationUser.FullName)
+            </td>
+            @if (User.IsInRole(SD.AdministratorRole))
+            {
+                <td>
+                    <a class="btn btn-primary text-light update" data-applicationId="@item.Id" data-statusId="@item.StatusId" data-toggle="modal" data-target="#update-modal">@Html.DisplayFor(modelItem => item.Statuses.Status)</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Statuses.Status)
+                </td>
+            }
+
+            <td>
+                <a class="btn  btn-primary" href="../Mentor/Home/Notes/Index?id=@item.Applicant.ApplicantId">Notes</a>
+            </td>
+            <td>
+                <a class="btn  btn-primary" asp-page="Detail" asp-route-id="@item.Id" asp-route-businessName="@item.Applicant.Business.Name">Details</a>
+            </td>
+            @if (item.Statuses.Status != "Approved")
+            {
+                <td>
+                    <a class="btn  btn-primary disabled" href="../Judge/PitchMeeting/JudgeForm/Index?id=@item.Applicant.ApplicantId">Scoring</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <a class="btn  btn-primary" href="../Judge/PitchMeeting/JudgeForm/Index?id=@item.Applicant.ApplicantId">Scoring</a>
+                </td>
+            }
+            <td>
+                <a class="btn  btn-primary" href="../Judge/PitchMeeting/PitchHistory/Index?id=@item.Applicant.ApplicantId">See History</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="update-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+
+                        @* <form method="post">*@
+                        @foreach (var item in Model.Status)
+                        {
+                            <input class="status" type="radio" name="status" value="@item.StatusId" id="S_@item.StatusId" />@item.Status<br />
+                        }
+                        <input type="button" id="update-status" value="Save" class="btn btn-success" />
+                        <input type="button" data-dismiss="modal" aria-label="Close" class=" close btn btn-danger" value="Close" />
+                        @*  </form>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $("a.update").on("click", function () {
+            var $this = $(this);
+            var applicationId = $this.data('applicationid');
+            var statusId = $this.data('statusid');
+            $('#S_' + statusId).prop("checked", true);  //
+            $('#update-status').data('applicationid', applicationId);
+        });
+
+        $('#update-status').click(function () {
+            var applicationId = $(this).data('applicationid');
+            var statusId = $('input[name="status"]:checked').val();
+            UpdateStatus(applicationId, statusId);
+        });
+        // call API Call 
+        function UpdateStatus(ApplicationId, StatusId) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/Application/UpdateStatus?ApplicationId=' + ApplicationId + "&StatusId=" + StatusId,
+                contentType: 'application/json',
+                success: function (data) {
+                        alert('Application Status Updated');
+                    $('#update-modal').modal('toggle');
+                    location.reload();//  this need to reload authomatically 
+                    }            
+            });
+        }
+    </script>
+}
+
+

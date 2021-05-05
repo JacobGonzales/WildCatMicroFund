@@ -1,0 +1,63 @@
+﻿@page
+@model WildcatMicro.Pages.Mentor.Notes.IndexModel
+@{
+    <h1>
+        Application: @Model.name
+    </h1>
+    <form method="post">
+        <input value=@Model.applicant name="applicantId" hidden />
+
+        @if (Model.mentors != null)
+        {
+            <h4>Mentors:</h4>
+            @foreach (var mentor in Model.mentors)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name=@mentor.Id @if (@Model.ma.Exists(a => a.ApplicationUserId == mentor.Id)) { @Html.Raw("checked") } >
+                    <label class="form-check-label" for=@mentor.Id>
+                        @mentor.UserName
+                    </label>
+                </div>
+            }
+            <br />
+        }
+
+
+        @if (Model.mentorAssignmentsNotesVM != null)
+        {
+            <h4>Notes:</h4>
+            @foreach (var ma in Model.mentorAssignmentsNotesVM)
+            {
+                <div>
+
+                    @foreach (var note in ma.MentorNotes)
+                    {
+                        <p>@note.MeetingDate</p>
+                        <p>@note.Notes</p>
+                    }
+                </div>
+            }
+            <br />
+        }
+
+        @if (Model.ma.Count() != 0)
+        {
+            <h4>New Note:</h4>
+            <div class="form-group row border">
+                <div class="col-3">
+                    <label for="newNote">New Note:</label>
+                    <input type="date" name="newDate" />
+                </div>
+                <div class="col-9">
+                    <textarea class="form-control" name="newNote" style="height: 200px;"></textarea>
+                </div>
+            </div>
+        }
+
+        <input type="submit" value="Submit" class="submit" />
+    </form>
+    
+
+
+
+}

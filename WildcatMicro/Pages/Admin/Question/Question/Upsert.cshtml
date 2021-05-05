@@ -1,0 +1,73 @@
+﻿@page
+@model WildcatMicro.Pages.Admin.Question.Question.UpsertModel
+
+<form method="post" asp-action="Upsert">
+    <div class="container">
+        <div class="row px-2 mx-2 backgroundWhite border">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-12 px-3" style="border-bottom: 1px solid #325d88">
+                <h2 class="text-primary">@(Model.QuestionObj.Question.QuestionId != 0 ? "Update" : "Create") Category</h2>
+            </div>
+            <div class="col-8 pt-3">
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="QuestionObj.Question.Question"></label>
+                    </div>
+                    <div class="col-9">
+                        <input class="form-control" asp-for="QuestionObj.Question.Question" />
+                        <span class="text-danger" asp-validation-for="QuestionObj.Question.Question"></span>
+                    </div>
+                    @if (Model.QuestionObj.Question.QuestionId != 0)
+                    {
+                        <input type="hidden" asp-for="QuestionObj.Question.QuestionId" />
+                    }
+                </div>
+                <div class="form-group row">
+                    <div class="col-3">
+                        <label asp-for="QuestionObj.Question.QuestionCategoryId"></label>
+                    </div>
+                    <div class="col-9">
+                        @Html.DropDownListFor(m => m.QuestionObj.Question.QuestionCategoryId,
+                       Model.QuestionObj.QuestionCategory,
+                       "- Please select a catalog - ",
+                       new { @class = "form-control" })
+                        <span class="table-danger" asp-validation-for="QuestionObj.Question.QuestionCategoryId"></span>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label asp-for="QuestionObj.Question.Order"></label>
+                        </div>
+                        <div class="col-9">
+                            <input class="form-control" asp-for="QuestionObj.Question.Order" />
+                            <span class="text-danger" asp-validation-for="QuestionObj.Question.Order"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-3">
+                            <label asp-for="QuestionObj.Question.Type"></label>
+                        </div>
+                        <div class="col-9">
+                            <input class="form-control" asp-for="QuestionObj.Question.Type" />
+                            <span class="text-danger" asp-validation-for="QuestionObj.Question.Type"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-9 offset-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn-primary btn form-control">@(Model.QuestionObj.Question.QuestionId != 0 ? "Update" : "Create")</button>
+                            </div>
+                            <div class="col-6">
+                                <a asp-page="./Index" class="btn-primary form-control btn">Back to List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

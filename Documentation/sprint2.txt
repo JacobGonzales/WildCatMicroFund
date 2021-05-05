@@ -1,0 +1,19 @@
+Michael Question models and repositories  -- Red
+
+Derek and Nich    Applicant and business models and repositories -- Green
+
+BT and Jacob  Mentor funding score award models and repositories  --  Yellow
+Finish by Tuesday 9th
+
+
+After the above is done assignments TBD for the next step
+including the below items
+
+
+Figure out how the views need to interact with 
+Upserts for all applicable models 
+
+
+Finish By Thursday 19th
+
+Refer to ER Diagram by BT to see all tables

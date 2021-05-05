@@ -1,0 +1,44 @@
+﻿@page
+@model WildcatMicro.Pages.Judge.PitchMeeting.PitchHistory.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Pitch History</h2>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Pitch Date
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Details
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var pitch in Model.PitchList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => pitch.PitchDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ApplicantObj.Business.Name)
+                </td>
+                <td>
+                    <a class="btn  btn-primary" href="PitchHistoryDetails/Index?id=@pitch.PitchId">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

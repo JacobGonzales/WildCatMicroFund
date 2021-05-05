@@ -1,0 +1,41 @@
+﻿@page
+@model WildcatMicro.Pages.Applicant.Home.HomepageModel
+@{
+}
+@{
+    ViewData["Title"] = "Homepage";
+}
+
+
+<div class="container backgroundWhite">
+    <div class="row">
+        <div class="col-12 border">
+            <div style="text-align: center;">
+                <h4><br />Welcome @Model.ApplicationUser.FullName!</h4>
+                <br/>
+            </div>
+            <div class="container">
+                <div class="card-deck mb-3 text-center">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <h5><br />Wildcat Fund Applcation Form</h5>
+                            <h5><br />Click the button below to get started today!</h5>
+                            <p></p>
+                            <a asp-page="./Index" class="btn btn-md btn-block btn-outline-primary">Application</a>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <h5><br />Application Status</h5>
+                            <h5><br />Click the button below for additional information!</h5>
+                            <p></p>
+                            <a asp-page="./Status" class="btn btn-md btn-block btn-outline-primary">Application Status</a>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

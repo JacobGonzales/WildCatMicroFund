@@ -1,0 +1,110 @@
+﻿@using WildcatMicro.Utility
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Wildcat Microfund</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/toastr.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css" />
+</head>
+<body class="search-background">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary text-white border-bottom box-shadow mb-3">
+            <div class="container">
+               <a class="navbar-brand" asp-area="" asp-page="/Index"><img height="75" src="~/images/logo.png" alt="logo" /> </a> 
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole(SD.AdministratorRole))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropDown" data-toggle="dropdown">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu">
+
+                                    <a class="dropdown-item text-black" asp-page="/Admin/User/Index">User</a>
+                                    <a class="dropdown-item text-black" asp-page="/Admin/Question/Category/Index">Categories</a>
+                                    <a class="dropdown-item text-black" asp-page="/Admin/Question/Question/Index">Questions</a>
+                                    <a class="dropdown-item text-black" asp-page="/Judge/JudgeQuestions/Index">Judge Questions</a>
+                                    <a class="dropdown-item text-black" asp-page="/Admin/ReviewApplications/Index">Review Applications</a>
+
+                                </div>
+
+                            </li>
+
+                        }
+                    </ul>
+
+                    @if (User.IsInRole(SD.JudgeRole))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropDown" data-toggle="dropdown">
+                                Judge
+                            </a>
+                            <div class="dropdown-menu">
+
+
+                                <a class="dropdown-item text-black" asp-page="/Admin/ReviewApplications/Index">Review Applications</a>
+
+                            </div>
+
+                        </li>
+                    }
+
+                    @if (User.IsInRole(SD.MentorRole))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropDown" data-toggle="dropdown">
+                                Mentor
+                            </a>
+                            <div class="dropdown-menu">
+
+                                <a class="dropdown-item text-black" asp-page="/Admin/ReviewApplications/Index">Review Applications</a>
+
+                            </div>
+
+                        </li>
+                    }
+
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid ">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - WildcatMicro - <a class="text-info" asp-area="" asp-page="/About">About</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=nhkdhbv587opp00p5vjkcuqpie5a9j6f38qwnonewj178jpg"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

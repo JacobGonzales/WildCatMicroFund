@@ -1,0 +1,69 @@
+Team name, motto, and logo;
+Name -  Purple Dragons
+Logo -  Purple Dragon 
+Motto - Code Like Dragons (CLD)
+
+Member contact information;
+Michael Lacefield  michaelalacefield@gmail.com  8016485669
+Nicholas Johnson   ntj117@gmail.com             8017211604
+Derek Nichols      12dnichols@gmail.com         8012000093
+Belete Nigusie     belete651@gmail.com          8018828338
+Jacob Gonzales     jacobgonzales@mail.weber.edu	3856263020
+
+Meeting times, and guidelines;
+
+Communication:  Discord
+Frequency Standup Meetings: 
+Tuesdays and Thursdays Night at 6pm.
+
+ROLES
+SCRUM Master: Michael
+
+
+
+No one except Scrum Master pushes to Master.  Pull requests into dev.
+Divy up work by features
+
+
+Here is kind of what I was thinking going off of the form.  We would seperate user from busienss incase they have multiple businesses.
+and use these different models to help populate any drop downs in the form so we dont hard code them in.
+
+User Model
+id First Last Phone street city zip Forign-county Email Forign-Role
+
+Business Model
+id Forign-User CompanyName status startdate-of-business description Forign-industry Websiteurl prototype-uploads intellectual-property generated-sales-description
+external-funding(amount src date) market-opportunity target-market sales competition team request award-use previous-grant Forign-hear-about-microfund workshop 1-million-cups
+counselor-where student-school weber-entrepeneurship weber-employee emp-number Forign-gender Forign-race Forign-age Forign-income Forign-education Forign-residence Forign-military-status signature
+
+Role Model
+id role
+
+Industry Model
+id industry
+
+hear-about model
+id source
+
+gender model
+id gender
+
+race model
+id race
+
+age model 
+id age-group
+
+income model
+id income-group
+
+education model
+id education
+
+residence model
+id residence
+
+military model
+id model
+
+https://docs.google.com/forms/d/e/1FAIpQLSdFQqhtfxltYoo-4iRzs-4jiSAlZfbc56uMk-JAE6Gw-R6CbQ/viewform

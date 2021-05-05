@@ -1,0 +1,52 @@
+﻿@page
+@model WildcatMicro.Pages.Judge.PitchMeeting.PitchHistory.PitchHistoryDetails.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="mb-5">
+    <h2>Pitch History Details</h2>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Score</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var question in Model.JudgeQuestionsList)
+                    {
+                        <tr>
+                            <td> @question.Questions.Question</td>
+
+                            @foreach (var score in Model.JudgeScoresList.Where(s => s.JudgeQuestionsId == question.JudgeQuestionsId))
+                            {
+                                <td> @score.Score</td>
+
+                                <td> @score.Comment</td>
+                            }
+                        </tr>
+                    }
+                        <tr>
+                            <td>
+                                <b>Total: @Model.finalScore / 100</b>
+                            </td>
+                        </tr>
+                </tbody>
+                </table>
+        </div>
+
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-12 col-md-2 pb-1 ">
+                <a class="btn  btn-primary" href="/Judge/PitchMeeting/PitchHistory/Index?id=@Model.PitchObj.Application.ApplicantId">Back to List</a>
+            </div>
+        </div>
+    </div>
+</section>
